@@ -11,6 +11,16 @@ In this application you can use your attention level to control car speed. Appli
     - FTDI Converter(Optional) * 2
     - PC (Optional)
 
+
+### First-Upload
+For the first UPLOAD you have to uncomment this line in "configuration.h". Next time you can comment it again. This line saves speed levels to EEPROM. 
+
+```arduino
+
+//#define WRITE_EEPROM 
+
+```
+
 If you want to use NodeJs web interface you will need a PC to run server. Connect two Arduino with USB cable to PC and set port names in "server.js"
 
 ```javascript
@@ -36,6 +46,7 @@ You can use FTDI converter or direct Arduino USB Plug to connect PC with Serial 
 
 ```
 
+## CARS WILL NOT MOVE IF .. !!
 In this application if there are not two racers which are signal quality equals zero(means max signal quality) cars cannot move. I needed this specification for race concept. If you want yo disable it use can comment this line in "configuration.h"
 
 ```arduino
