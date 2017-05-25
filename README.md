@@ -26,7 +26,7 @@ $ node server.js
 
 ```
 
-<img src="imgs/yarisArayüz.png" height="1024px" width="768px"></img>
+<img src="imgs/yarisArayüz.png"></img>
 
 You can use FTDI converter or direct Arduino USB Plug to connect PC with Serial communication. You should uncomment this line in "configuration.h" and use A4 as RX, A5 as TX pin
 
