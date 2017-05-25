@@ -47,7 +47,7 @@ You can use FTDI converter or direct Arduino USB Plug to connect PC with Serial 
 ```
 
 ## CARS WILL NOT MOVE IF .. !!
-In this application if there are not two racers which are signal quality equals zero(means max signal quality) cars cannot move. I needed this specification for race concept. If you want yo disable it use can comment this line in "configuration.h"
+In this application if there are not two racers which are signal qualites equals zero(means max signal quality) cars cannot move. I needed this specification for race concept. If you want to disable it, comment this line in "configuration.h"
 
 ```arduino
 
