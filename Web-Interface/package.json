@@ -1,0 +1,22 @@
+{
+  "name": "neurosky-web-interface",
+  "version": "1.0.0",
+  "description": "Race Project for two racer using brain waves with NeuroSky wave Sensor",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "keywords": [
+    "neurosky",
+    "race",
+    "nodejs"
+  ],
+  "author": "baseroguzhan",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.15.3",
+    "serialport": "^4.0.7",
+    "socket.io": "^2.0.1"
+  }
+}
