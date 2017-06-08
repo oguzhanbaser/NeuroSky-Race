@@ -1,6 +1,6 @@
 # NeuroSky-Race
 
-In this application you can use your attention level to control car speed. Application designed for two racers. In this application you will need following items:
+In this application you can use your attention level to control car speed. Application designed for two racers. You will need following items for this project:
 
     - NeuroSky Mindwave Sensors * 2
     - Arduino (Nano in this example but can be different) * 2
@@ -21,11 +21,12 @@ For the first UPLOAD you have to uncomment this line in "configuration.h". Next 
 
 ```
 
+### Interface
 If you want to use NodeJs web interface you will need a PC to run server. Connect two Arduino with USB cable to PC and set port names in "server.js"
 
 ```javascript
-var portName1 = "COM5";
-var portName2 = "COM13";
+var portName1 = "COM5";         //if you use using Linux /dev/tty***
+var portName2 = "COM13";        //if you are using Linux /dev/tty***
 ```
 
 ```sh
@@ -38,6 +39,8 @@ $ node server.js
 
 <img src="imgs/yarisArayüz.png"></img>
 
+
+### Software Serial
 You can use FTDI converter or direct Arduino USB Plug to connect PC with Serial communication. You should uncomment this line in "configuration.h" and use A4 as RX, A5 as TX pin
 
 ```arduino

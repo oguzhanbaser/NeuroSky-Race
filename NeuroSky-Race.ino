@@ -29,18 +29,20 @@ int ledArray[LED_ARRAY_SIZE] = { GREENLED1, GREENLED2, GREENLED3, YELLOWLED1, YE
 YELLOWLED3, YELLOWLED4, REDLED1, REDLED2, REDLED3 };
 uint8_t turSayisi = 0;
 
+//software Serial
 #ifdef USE_EXTERNAL_USB
 SoftwareSerial usbSer(SOFT_SERIAL_RX, SOFT_SERIAL_TX);
 #endif
 
+//speed levels
 uint8_t speedArray[ARRAY_SIZE];
 
 #ifdef USE_MZ80
 void tur_int()
 {
-	//digitalWrite(13, !digitalRead(13));
 	turSayisi++;
 
+	//if lap count equals to ten stop the race
 	if (turSayisi > 10)
 	{
 		stop_race = true;
@@ -92,6 +94,7 @@ void setup()
 		speedArray[i] = EEPROM.read(i);
 	}
 
+	//attention leve indicators
 	pinMode(GREENLED1, OUTPUT);
 	pinMode(GREENLED2, OUTPUT);
 	pinMode(GREENLED3, OUTPUT);
@@ -103,6 +106,8 @@ void setup()
 	pinMode(REDLED2, OUTPUT);
 	pinMode(REDLED3, OUTPUT);
 	pinMode(MOTOR_OUT, OUTPUT);
+
+	//Players ready?
 	pinMode(READY_IN, INPUT);
 	pinMode(READY_OUT, OUTPUT);
 
@@ -110,6 +115,7 @@ void setup()
 	attachInterrupt(digitalPinToInterrupt(MZ_80), tur_int, FALLING);
 #endif
 
+	//poor quality indicator led
 	pinMode(LED, OUTPUT);
 }
 
@@ -161,7 +167,7 @@ void loop()
 		}
 	}
 
-	//yar�� bitti ise motoru durdur
+	//If the race end stop the cars
 #ifdef MAKE_GAME
 	if (stop_race)
 	{
@@ -186,7 +192,6 @@ void loop()
 		}
 	}*/
 
-	//yar�� bittiyse yapma
 	if (Serial.available())
 
 	{
@@ -252,8 +257,6 @@ void loop()
 					} // for loop
 
 #if !DEBUGOUTPUT
-
-					// *** Add your code here ***
 
 					if (bigPacket)
 					{
@@ -452,6 +455,7 @@ void loop()
 		} // end if read 0xAA byte
 	}
 
+	//send siqnal quality and attention level per second
 	if (millis() - lastTime1 > INTERVAL)
 	{
 		String ss = "#|" + String(lastPoorQuality) + "|" + String(lastAttention);
@@ -468,6 +472,7 @@ void loop()
 	analogWrite(MOTOR_OUT, motorVal);
 }
 
+//default speed array
 void setSpeedArray()
 {
 	speedArray[0] = 0;
