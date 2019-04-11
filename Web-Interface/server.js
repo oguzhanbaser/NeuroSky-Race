@@ -5,12 +5,11 @@ var socket = require('socket.io')(http);
 var fs = require('fs');
 var path = require('path');
 
-var SerialPort1 = require("serialport");
-var SerialPort2 = require("serialport");
-var port = 3000;
-
-var portName1 = "COM5";
-var portName2 = "COM13";
+const SerialPort = require('serialport');
+const Readline = require('@serialport/parser-readline');
+const port = new SerialPort("COM16", { baudRate: 9600, autoOpen: false });
+const parser = new Readline();
+var webPort = 3000;
 
 app.use(express.static(path.join(__dirname)));
 
@@ -20,75 +19,43 @@ app.get('/', function(req ,res) {
 
 var data1 = {"signal": 0, "attention": 0};
 var data2 = {"signal": 0, "attention": 0};
-var isOpened1 = false, isOpened2 = false;
+
+port.open(function (err) {
+    if (err) {
+      return console.log('Error opening port: ', err.message)
+    }
+  
+    // Because there's no callback to write, write errors will be emitted on the port:
+    port.write('main screen turn on')
+  })
 
 try{
-    serialPort1 = new SerialPort1(portName1, {
-        baudrate: 57600,
-        parser: SerialPort1.parsers.readline('\r\n')
+    port.pipe(parser);
+
+    parser.on('data', function(p_data){
+        var s_data = p_data.split("|");
+        console.log(s_data);
+        var user = s_data[1];
+
+        if(s_data[0] == "#")
+        {
+            if(user == 1)
+            {
+                data1["signal"] = 100 - s_data[2];
+                data1["attention"] = s_data[3];
+            }else if(user == 2)
+            {
+                data2["signal"] = 100 - s_data[2];
+                data2["attention"] = s_data[3];
+            }
+        }
     });
+
     isOpened1 = true;
 }catch(err){
-    console.log(err);
+    //console.log(err);
 }
 
-try{
-    serialPort2 = new SerialPort2(portName2, {
-        baudrate: 57600,
-        parser: SerialPort2.parsers.readline('\r\n')
-    });
-    isOpened2 = true;
-}catch(err){
-    console.log(err);
-}
-
-if(isOpened1)
-{
-    serialPort1.on('open',function(error) {
-        if(error)
-        {
-            console.log("Error");
-            return;
-        }
-        console.log('Port open');
-    });
-
-    serialPort1.on('data', function(p_data, err){
-
-        var s_data = p_data.split("|");
-
-        if(s_data[0] == "#")
-        {
-            data1["signal"] = 100 - s_data[1];
-            data1["attention"] = s_data[2];
-        }
-
-    });
-}
-
-if(isOpened2)
-{
-    serialPort2.on('open',function(error) {
-        if(error)
-        {
-            console.log("Error");
-            return;
-        }
-        console.log('Port open');
-    });
-
-    serialPort2.on('data', function(p_data, err){
-
-        var s_data = p_data.split("|");
-
-        if(s_data[0] == "#")
-        {
-            data2["signal"] = 100 - s_data[1];
-            data2["attention"] = s_data[2];
-        }
-
-    });
-}
 
 socket.on('connection', function(p_socket){
     console.log("Biri baglandi");
@@ -103,6 +70,6 @@ socket.on('connection', function(p_socket){
     });
 });
 
-http.listen(port,function(){
-	console.log("Listeining: ", port);
+http.listen(webPort,function(){
+	console.log("Listeining: ", webPort);
 });
