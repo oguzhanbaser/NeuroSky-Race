@@ -1,11 +1,10 @@
 const PARSERS = [/USB\\(?:.+)\\(.+)/, /FTDIBUS\\(?:.+)\+(.+?)A?\\.+/]
 
-module.exports = function(pnpId) {
+module.exports = pnpId => {
   if (!pnpId) {
     return null
   }
-  for (let index = 0; index < PARSERS.length; index++) {
-    const parser = PARSERS[index]
+  for (const parser of PARSERS) {
     const sn = pnpId.match(parser)
     if (sn) {
       return sn[1]

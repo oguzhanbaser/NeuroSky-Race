@@ -1,0 +1,28 @@
+{
+  "name": "web-interface",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/oguzhanbaser/NeuroSky-Race.git"
+  },
+  "keywords": [
+    "neurosky-race"
+  ],
+  "author": "baseroguzhan",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/oguzhanbaser/NeuroSky-Race/issues"
+  },
+  "homepage": "https://github.com/oguzhanbaser/NeuroSky-Race#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "serialport": "^9.2.4",
+    "socket.io": "^4.2.0"
+  }
+}
