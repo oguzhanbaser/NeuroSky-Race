@@ -56,7 +56,7 @@ $(document).ready(function(){
 	socket.on('player1', function(p_data){
 		val1 = p_data["attention"];
 		connStatus1 = p_data["signal"];
-		console.log(connStatus1);
+		// console.log(connStatus1);
 	});
 
 	socket.on('player2', function(p_data){

@@ -7,7 +7,7 @@ var path = require('path');
 
 const SerialPort = require('serialport');
 const Readline = require('@serialport/parser-readline');
-const port = new SerialPort("COM27", { baudRate: 9600, autoOpen: false });
+const port = new SerialPort("COM8", { baudRate: 9600, autoOpen: false });
 const parser = new Readline();
 var webPort = 3000;
 
@@ -37,7 +37,7 @@ try{
         console.log(s_data);
         var user = s_data[1];
 
-        if(s_data[0] == "#")
+        if(s_data[0] == "\r#")
         {
             if(user == 1)
             {
@@ -63,6 +63,7 @@ socket.on('connection', function(p_socket){
     var sendInterval = setInterval(function(){
         p_socket.emit('player1', data1);
         p_socket.emit('player2', data2);
+        // console.log("asdasd")
     }, 1000);
 
     p_socket.on('close', function(){
