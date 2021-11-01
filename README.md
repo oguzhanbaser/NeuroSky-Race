@@ -1,5 +1,7 @@
 # NeuroSky-Race
 
+### If you want to use STM32F103 with this project, you should choose "stm32" branch. 
+
 In this application you can use your attention level to control car speed. Application designed for two racers. You will need following items for this project:
 
     - NeuroSky Mindwave Sensors * 2
