@@ -47,7 +47,6 @@
   ******************************************************************************
   */
 /* USER CODE END Header */
-
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
 #include "usb_device.h"
@@ -73,7 +72,7 @@
 /* USER CODE END PM */
 
 /* Private variables ---------------------------------------------------------*/
-TIM_HandleTypeDef htim2;
+ TIM_HandleTypeDef htim2;
 TIM_HandleTypeDef htim3;
 
 UART_HandleTypeDef huart2;
@@ -317,7 +316,7 @@ int main(void)
 						  if(poorQuality1 == 0)
 						  {
 							  uint8_t max_lvl = attention1 / 10;
-							  max_lvl = max_lvl > 10 ? 10 : max_lvl;
+							  max_lvl = max_lvl > 9 ? 9 : max_lvl;
 							  __HAL_TIM_SET_COMPARE(&htim2, TIM_CHANNEL_2, pwm_lvl[max_lvl]);
 
 							  for(int i = 0; i < max_lvl; i++)
@@ -418,7 +417,7 @@ int main(void)
 						  if(poorQuality2 == 0)
 						  {
 							  uint8_t max_lvl = attention2 / 10;
-							  max_lvl = max_lvl > 10 ? 10 : max_lvl;
+							  max_lvl = max_lvl > 9 ? 9 : max_lvl;
 							  __HAL_TIM_SET_COMPARE(&htim3, TIM_CHANNEL_2, pwm_lvl[max_lvl]);
 
 							  for(int i = 0; i < max_lvl; i++)
@@ -466,7 +465,8 @@ void SystemClock_Config(void)
   RCC_ClkInitTypeDef RCC_ClkInitStruct = {0};
   RCC_PeriphCLKInitTypeDef PeriphClkInit = {0};
 
-  /**Initializes the CPU, AHB and APB busses clocks 
+  /** Initializes the RCC Oscillators according to the specified parameters
+  * in the RCC_OscInitTypeDef structure.
   */
   RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_HSE;
   RCC_OscInitStruct.HSEState = RCC_HSE_ON;
@@ -479,7 +479,8 @@ void SystemClock_Config(void)
   {
     Error_Handler();
   }
-  /**Initializes the CPU, AHB and APB busses clocks 
+
+  /** Initializes the CPU, AHB and APB buses clocks
   */
   RCC_ClkInitStruct.ClockType = RCC_CLOCKTYPE_HCLK|RCC_CLOCKTYPE_SYSCLK
                               |RCC_CLOCKTYPE_PCLK1|RCC_CLOCKTYPE_PCLK2;
@@ -664,11 +665,12 @@ static void MX_USART3_UART_Init(void)
 
 }
 
-/** 
+/**
   * Enable DMA controller clock
   */
-static void MX_DMA_Init(void) 
+static void MX_DMA_Init(void)
 {
+
   /* DMA controller clock enable */
   __HAL_RCC_DMA1_CLK_ENABLE();
 
@@ -701,12 +703,12 @@ static void MX_GPIO_Init(void)
   HAL_GPIO_WritePin(GPIOC, LED20_Pin|LED19_Pin|LED18_Pin, GPIO_PIN_RESET);
 
   /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(GPIOA, LED17_Pin|LED16_Pin|LED15_Pin|LED14_Pin 
-                          |LED13_Pin|LED12_Pin|LED6_Pin|LED5_Pin 
+  HAL_GPIO_WritePin(GPIOA, LED17_Pin|LED16_Pin|LED15_Pin|LED14_Pin
+                          |LED13_Pin|LED12_Pin|LED6_Pin|LED5_Pin
                           |LED4_Pin|LED3_Pin, GPIO_PIN_RESET);
 
   /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(GPIOB, LED11_Pin|LED10_Pin|LED9_Pin|LED8_Pin 
+  HAL_GPIO_WritePin(GPIOB, LED11_Pin|LED10_Pin|LED9_Pin|LED8_Pin
                           |LED7_Pin|LED2_Pin|LED1_Pin, GPIO_PIN_RESET);
 
   /*Configure GPIO pins : LED20_Pin LED19_Pin LED18_Pin */
@@ -716,20 +718,20 @@ static void MX_GPIO_Init(void)
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
   HAL_GPIO_Init(GPIOC, &GPIO_InitStruct);
 
-  /*Configure GPIO pins : LED17_Pin LED16_Pin LED15_Pin LED14_Pin 
-                           LED13_Pin LED12_Pin LED6_Pin LED5_Pin 
+  /*Configure GPIO pins : LED17_Pin LED16_Pin LED15_Pin LED14_Pin
+                           LED13_Pin LED12_Pin LED6_Pin LED5_Pin
                            LED4_Pin LED3_Pin */
-  GPIO_InitStruct.Pin = LED17_Pin|LED16_Pin|LED15_Pin|LED14_Pin 
-                          |LED13_Pin|LED12_Pin|LED6_Pin|LED5_Pin 
+  GPIO_InitStruct.Pin = LED17_Pin|LED16_Pin|LED15_Pin|LED14_Pin
+                          |LED13_Pin|LED12_Pin|LED6_Pin|LED5_Pin
                           |LED4_Pin|LED3_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
   HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
 
-  /*Configure GPIO pins : LED11_Pin LED10_Pin LED9_Pin LED8_Pin 
+  /*Configure GPIO pins : LED11_Pin LED10_Pin LED9_Pin LED8_Pin
                            LED7_Pin LED2_Pin LED1_Pin */
-  GPIO_InitStruct.Pin = LED11_Pin|LED10_Pin|LED9_Pin|LED8_Pin 
+  GPIO_InitStruct.Pin = LED11_Pin|LED10_Pin|LED9_Pin|LED8_Pin
                           |LED7_Pin|LED2_Pin|LED1_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
@@ -763,12 +765,10 @@ void Error_Handler(void)
   * @retval None
   */
 void assert_failed(uint8_t *file, uint32_t line)
-{ 
+{
   /* USER CODE BEGIN 6 */
   /* User can add his own implementation to report the file name and line number,
      tex: printf("Wrong parameters value: file %s on line %d\r\n", file, line) */
   /* USER CODE END 6 */
 }
 #endif /* USE_FULL_ASSERT */
-
-/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

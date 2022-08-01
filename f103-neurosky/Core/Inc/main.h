@@ -130,7 +130,6 @@ void Error_Handler(void);
 #define LED2_GPIO_Port GPIOB
 #define LED1_Pin GPIO_PIN_9
 #define LED1_GPIO_Port GPIOB
-
 /* USER CODE BEGIN Private defines */
 #define LED_COUNT 10
 /* USER CODE END Private defines */
@@ -140,5 +139,3 @@ void Error_Handler(void);
 #endif
 
 #endif /* __MAIN_H */
-
-/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
